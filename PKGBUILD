@@ -8,6 +8,7 @@ source=('git+https://github.com/MaxKellermann/cegcc-build')
 md5sums=('SKIP')
 
 prepare() {
+    cd cegcc-build
     git submodule update --init --recursive
 }
 
