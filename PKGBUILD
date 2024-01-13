@@ -9,6 +9,7 @@ md5sums=('SKIP')
 
 package() {
     cd cegcc-build
+    mkdir $pkgdir/usr
     chown "$(whoami):$(whoami)" $pkgdir/usr
     cd $pkgdir/usr
     "$OLDPWD/build.sh" -j$(nproc) --prefix=$pkgdir/usr
