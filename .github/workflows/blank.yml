@@ -23,7 +23,7 @@ jobs:
       - name: Install Packages
         run: |
           pacman -Syuu
-          pacman -Syu --needed --noconfirm base-devel 
+          pacman -Syu --needed --noconfirm base-devel
 
       - name: Add User
         run: |
