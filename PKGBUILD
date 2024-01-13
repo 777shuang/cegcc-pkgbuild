@@ -7,6 +7,10 @@ makedepends=('git' 'gcc' 'make' 'bison' 'flex' 'm4' 'gmp' 'mpc' 'mpfr' 'texinfo'
 source=('git+https://github.com/MaxKellermann/cegcc-build')
 md5sums=('SKIP')
 
+prepare() {
+    git submodule update --init --recursive
+}
+
 package() {
     cd cegcc-build
     mkdir $pkgdir/usr
