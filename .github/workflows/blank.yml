@@ -1,36 +1,48 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: write
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  release:
+    name: Release
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    container: 
+      image: archlinux:latest
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Install Packages
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          pacman -Syuu
+          pacman -Syu --needed --noconfirm base-devel 
+
+      - name: Add User
+        run: |
+          useradd builder -m
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chmod -R a+rw .
+
+      - name: makepkg
+        run: |
+          sudo -H -u builder makepkg -sC --noconfirm
+
+      - name: Parse .SRCINFO
+        id: srcinfo
+        run: |
+          sudo -H -u builder makepkg --printsrcinfo > .SRCINFO
+          echo "version=$(grep pkgver .SRCINFO | awk '{print $3}')-$(grep pkgrel .SRCINFO | awk '{print $3}')" >> $GITHUB_OUTPUT
+
+      - name: Create new release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.srcinfo.outputs.version }}
+          tag_name: ${{ steps.srcinfo.outputs.version }}
+          files:
+            *.tar.*
