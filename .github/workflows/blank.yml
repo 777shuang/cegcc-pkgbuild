@@ -45,4 +45,4 @@ jobs:
           name: Release ${{ steps.srcinfo.outputs.version }}
           tag_name: ${{ steps.srcinfo.outputs.version }}
           files:
-            *.tar.*
+            gcc-arm-mingw32ce-${{ steps.srcinfo.outputs.version }}-x86_64.pkg.tar.zst
