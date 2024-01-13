@@ -8,7 +8,7 @@ source=('git+https://github.com/MaxKellermann/cegcc-build')
 md5sums=('SKIP')
 
 package() {
-    cd "$srcdir/$_pkgname"
+    cd cegcc-build
     chown "$(whoami):$(whoami)" $pkgdir/usr
     cd $pkgdir/usr
     "$OLDPWD/build.sh" -j$(nproc) --prefix=$pkgdir/usr
