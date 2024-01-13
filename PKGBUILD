@@ -4,6 +4,7 @@ pkgrel=1
 arch=('any')
 makedepends=('git' 'gcc' 'make' 'bison' 'flex' 'm4' 'gmp' 'mpc' 'mpfr' 'texinfo' 'cmake')
 source=('git+https://github.com/MaxKellermann/cegcc-build')
+md5sums=('SKIP')
 
 package() {
     cd $pkgname
