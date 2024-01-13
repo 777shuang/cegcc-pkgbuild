@@ -1,4 +1,5 @@
-pkgname=gcc-arm-mingw32ce
+_pkgname=gcc-arm-mingw32ce
+pkgname=$_pkgname-git
 pkgver=9.3.0
 pkgrel=1
 arch=('any')
@@ -7,7 +8,7 @@ source=('git+https://github.com/MaxKellermann/cegcc-build')
 md5sums=('SKIP')
 
 package() {
-    cd $pkgname-$pkgver
+    cd "$srcdir/$_pkgname"
     chown "$(whoami):$(whoami)" $pkgdir/usr
     cd $pkgdir/usr
     "$OLDPWD/build.sh" -j$(nproc) --prefix=$pkgdir/usr
