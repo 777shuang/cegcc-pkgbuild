@@ -9,7 +9,9 @@ md5sums=('SKIP')
 
 prepare() {
     cd cegcc-build
-    git submodule update --init --recursive
+    git submodule init
+    git config submodule.libs/libdep.url "$srcdir/lib-dependency"
+    git -c protocol.file.allow=always submodule update
 }
 
 package() {
