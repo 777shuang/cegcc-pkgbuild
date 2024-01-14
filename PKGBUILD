@@ -20,10 +20,10 @@ md5sums=(
 prepare() {
     cd cegcc-build
     git submodule init
-    git config submodule.libs/binutils.url "$srcdir/binutils-gdb"
-    git config submodule.libs/gcc.url "$srcdir/gcc"
-    git config submodule.libs/mingw.url "$srcdir/mingwrt"
-    git config submodule.libs/w32api.url "$srcdir/w32api"
+    git config submodule.binutils.url "$srcdir/binutils-gdb"
+    git config submodule.gcc.url "$srcdir/gcc"
+    git config submodule.mingw.url "$srcdir/mingwrt"
+    git config submodule.w32api.url "$srcdir/w32api"
     git -c protocol.file.allow=always submodule update
 }
 
