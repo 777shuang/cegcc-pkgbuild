@@ -9,7 +9,13 @@ source=('git+https://github.com/MaxKellermann/cegcc-build'
     'git+https://github.com/MaxKellermann/gcc'
     'git+https://github.com/MaxKellermann/mingwrt'
     'git+https://github.com/MaxKellermann/w32api')
-md5sums=('SKIP')
+md5sums=(
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    )
 
 prepare() {
     cd cegcc-build
